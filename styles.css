@@ -32,7 +32,8 @@ h1 {
 }
 
 /* Input and button styles */
-input[type="text"] {
+input[type="text"],
+input[type="email"] {
     padding: 10px;
     border: 1px solid #00ff00;
     border-radius: 5px;
@@ -123,4 +124,27 @@ button:hover {
 
 .messages::-webkit-scrollbar-track {
     background: #111;
+}
+/* Individual message styles */
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+    background-color: #111;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+/* Username styling with different colors */
+.message .username {
+    font-weight: bold;
+}
+
+/* Use a color palette for different usernames */
+.message:nth-child(odd) .username {
+    color: #ff00ff; /* Magenta */
+}
+
+.message:nth-child(even) .username {
+    color: #00ffff; /* Cyan */
 }
