@@ -27,8 +27,8 @@ Welcome to the **Cyber Chat Room**! This project is a retro-themed chat applicat
 1. **Clone the Repository**
 
    ```bash
-   git clone <repository-url>
-   cd cyber-chat-room
+   git clone https://github.com/mandarwagh9/ChatAPP-.git
+   cd ChatAPP-
    ```
 
 2. **Create a Firebase Project**
