@@ -2,7 +2,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
 import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
 // Your Firebase configuration
    const firebaseConfig = {
@@ -14,21 +13,22 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstati
      appId: "YOUR_APP_ID",
      measurementId: "YOUR_MEASUREMENT_ID"
    }
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
-const storage = getStorage(app);
 
 // Function to join the chat
 window.joinChat = function() {
   const username = document.getElementById('username').value;
-  if (username) {
+  const email = document.getElementById('email').value;
+
+  if (username && email) {
+    // Perform Firebase authentication or other operations with the email here
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('chat-room').style.display = 'block';
   } else {
-    alert('Please enter a username');
+    alert('Please enter both email and username');
   }
 }
 
@@ -53,40 +53,6 @@ window.sendMessage = async function() {
   }
 }
 
-// Function to upload an image
-async function uploadImage(file) {
-  const storageRef = ref(storage, 'images/' + file.name);
-  try {
-    await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(storageRef);
-    return downloadURL;
-  } catch (error) {
-    console.error("Error uploading image:", error.message);
-    return null;
-  }
-}
-
-// Function to send an image
-window.sendImage = async function() {
-  const fileInput = document.getElementById('image-input');
-  const file = fileInput.files[0];
-  if (file) {
-    const downloadURL = await uploadImage(file);
-    if (downloadURL) {
-      try {
-        await addDoc(collection(db, "messages"), {
-          username: document.getElementById('username').value,
-          message: downloadURL,
-          timestamp: new Date(),
-          type: 'image'
-        });
-      } catch (error) {
-        console.error("Error sending image:", error.message);
-      }
-    }
-  }
-}
-
 // Listen for new messages
 const q = query(collection(db, "messages"), orderBy("timestamp", "asc"), limit(50));
 onSnapshot(q, (snapshot) => {
@@ -96,14 +62,20 @@ onSnapshot(q, (snapshot) => {
     const data = doc.data();
     const messageElement = document.createElement('div');
     messageElement.classList.add('message');
-    if (data.type === 'image') {
-      const img = document.createElement('img');
-      img.src = data.message;
-      img.style.maxWidth = '100%'; // Ensure images fit within the chat window
-      messageElement.appendChild(img);
-    } else {
-      messageElement.textContent = `${data.username}: ${data.message}`;
-    }
+
+    // Create username span with dynamic color
+    const usernameElement = document.createElement('span');
+    usernameElement.classList.add('username');
+    usernameElement.textContent = `${data.username}: `;
+    
+    // Create message span
+    const messageTextElement = document.createElement('span');
+    messageTextElement.textContent = data.message;
+    
+    // Append username and message text to message element
+    messageElement.appendChild(usernameElement);
+    messageElement.appendChild(messageTextElement);
+
     messagesDiv.appendChild(messageElement);
   });
 });
