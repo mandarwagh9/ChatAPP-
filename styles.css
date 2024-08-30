@@ -1,0 +1,89 @@
+/* General body styles */
+body {
+    font-family: 'Press Start 2P', cursive; /* Retro font */
+    background-color: #1e1e1e; /* Dark background */
+    color: #00ff00; /* Neon green text */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container for the chat interface */
+  .screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom, #000000, #2b2b2b); /* Gradient background */
+    border: 2px solid #00ff00; /* Neon green border */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Neon glow effect */
+    padding: 20px;
+  }
+  
+  /* Header styles */
+  h1 {
+    margin-bottom: 20px;
+    color: #00ff00; /* Neon green text */
+    font-size: 2em;
+  }
+  
+  /* Input and button styles */
+  input[type="text"] {
+    padding: 10px;
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+    background-color: #111;
+    color: #00ff00;
+    margin: 5px;
+    width: 100%; /* Full width of the container */
+    max-width: 300px;
+  }
+  
+  /* Send button style */
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00ff00;
+    color: #000;
+    cursor: pointer;
+    width: 100%; /* Full width of the container */
+    max-width: 300px;
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    background-color: #00cc00;
+  }
+  
+  /* Message area styles */
+  .messages {
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    height: calc(100vh - 150px); /* Adjust height based on header and input sizes */
+    overflow-y: auto;
+    border-top: 2px solid #00ff00;
+  }
+  
+  /* Individual message styles */
+  .message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #00ff00;
+    border-radius: 5px;
+    background-color: #111;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  }
+  
+  /* Input container styles */
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 10px;
+  }
+  
